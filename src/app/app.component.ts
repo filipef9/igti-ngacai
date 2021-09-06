@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AcrescimoModel } from './acrescimo.model';
+
+const MAXIMO_ACRESCIMOS_PERMITIDOS = 3;
 
 @Component({
   selector: 'app-root',
@@ -12,7 +15,7 @@ export class AppComponent {
   ];
   tamanhoSelecionado: string;
 
-  acrescimos = [
+  private acrescimos = [
     'Leite condensado',
     'Banana',
     'Granola',
@@ -22,9 +25,13 @@ export class AppComponent {
     'Castanha de caju'
   ];
   acrescimosSelecionados: string[];
+  acrescimosModel: AcrescimoModel[];
 
   constructor() {
     this.acrescimosSelecionados = [];
+    this.acrescimosModel = [
+      ...[...this.acrescimos].map(a => ({ nome: a, disabled: false, checked: false }))
+    ];
   }
 
   handleSelectTamanho(event: any): void {
@@ -33,19 +40,32 @@ export class AppComponent {
 
   handleSelectAcrescimo(event: any, acrescimo: string): void {
     const acrescimoFoiSelecionado = event.target.checked;
+    console.log('acrescimosModel', this.acrescimosModel);
 
+    const index = this.acrescimosModel.findIndex(a => a.nome === acrescimo);
     if (acrescimoFoiSelecionado) {
-      this.acrescimosSelecionados = [
-        ...this.acrescimosSelecionados,
-        acrescimo
-      ];
+      this.acrescimosModel[index].checked = event.target.checked;
     } else {
-      this.acrescimosSelecionados = [
-        ...this.acrescimosSelecionados.filter(a => a !== acrescimo)
-      ];
+      this.acrescimosModel[index].checked = false;
     }
 
-    console.log('Acréscimos selecionados: ', this.acrescimosSelecionados);
+    if (this.getTotalAcrescimosSelecionados() === MAXIMO_ACRESCIMOS_PERMITIDOS) {
+      this.acrescimosModel.forEach(a => {
+        if (!a.checked) {
+          a.disabled = true;
+        }
+      });
+    } else {
+      this.acrescimosModel.forEach(a => a.disabled = false);
+    }
+  }
+
+  getTotalAcrescimosSelecionados(): number {
+    return this.acrescimosModel
+      .reduce(
+        (soma: number, acrescimo: AcrescimoModel): number => (acrescimo.checked ? soma + 1 : soma),
+        0
+      );
   }
 
 }

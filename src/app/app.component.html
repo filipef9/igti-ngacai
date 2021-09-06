@@ -19,18 +19,20 @@
   <div class="card" style="width: 18rem;">
     <div class="card-header">
       <h5 class="card-title">Acréscimos</h5>
-      <h6 *ngIf="acrescimosSelecionados.length === 0" class="card-subtitle text-muted">Escolha até 3</h6>
-      <h6 *ngIf="acrescimosSelecionados.length === 1" class="card-subtitle text-muted">Escolha até 3 ({{
-        acrescimosSelecionados.length }} selecionado)</h6>
-      <h6 *ngIf="acrescimosSelecionados.length > 1" class="card-subtitle text-muted">Escolha até 3 ({{
-        acrescimosSelecionados.length }} selecionados)</h6>
+
+      <h6 *ngIf="getTotalAcrescimosSelecionados() === 0" class="card-subtitle text-muted">Escolha até 3</h6>
+      <h6 *ngIf="getTotalAcrescimosSelecionados() === 1" class="card-subtitle text-muted">Escolha até 3 ({{
+        getTotalAcrescimosSelecionados() }} selecionado)</h6>
+      <h6 *ngIf="getTotalAcrescimosSelecionados() > 1" class="card-subtitle text-muted">Escolha até 3 ({{
+        getTotalAcrescimosSelecionados() }} selecionados)</h6>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let acrescimo of acrescimos; let i = index">
+      <li class="list-group-item" *ngFor="let acrescimo of acrescimosModel; let i = index">
         <div class="form-check">
           <input id="acrescimo{{ i }}" name="tamanho{{ i }}" class="form-check-input" type="checkbox"
-            value="{{ acrescimo }}" (change)="handleSelectAcrescimo($event, acrescimo)" />
-          <label class="form-check-label" for="acrescimo{{ i }}">{{ acrescimo }}</label>
+            value="{{ acrescimo.nome }}" (change)="handleSelectAcrescimo($event, acrescimo.nome)"
+            [checked]="acrescimo.checked" [disabled]="acrescimo.disabled" />
+          <label class="form-check-label" for="acrescimo{{ i }}">{{ acrescimo.nome }}</label>
         </div>
       </li>
     </ul>
