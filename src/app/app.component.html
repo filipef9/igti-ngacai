@@ -17,7 +17,14 @@
   </div>
 
   <div class="card" style="width: 18rem;">
-    <div class="card-header">Acréscimos</div>
+    <div class="card-header">
+      <h5 class="card-title">Acréscimos</h5>
+      <h6 *ngIf="acrescimosSelecionados.length === 0" class="card-subtitle text-muted">Escolha até 3</h6>
+      <h6 *ngIf="acrescimosSelecionados.length === 1" class="card-subtitle text-muted">Escolha até 3 ({{
+        acrescimosSelecionados.length }} selecionado)</h6>
+      <h6 *ngIf="acrescimosSelecionados.length > 1" class="card-subtitle text-muted">Escolha até 3 ({{
+        acrescimosSelecionados.length }} selecionados)</h6>
+    </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item" *ngFor="let acrescimo of acrescimos; let i = index">
         <div class="form-check">
