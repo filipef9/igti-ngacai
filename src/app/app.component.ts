@@ -23,4 +23,25 @@ export class AppComponent {
   ];
   acrescimosSelecionados: string[];
 
+  constructor() {
+    this.acrescimosSelecionados = [];
+  }
+
+  getAcrescimo(event: any, acrescimo: string): void {
+    const acrescimoFoiSelecionado = event.target.checked;
+
+    if (acrescimoFoiSelecionado) {
+      this.acrescimosSelecionados = [
+        ...this.acrescimosSelecionados,
+        acrescimo
+      ];
+    } else {
+      this.acrescimosSelecionados = [
+        ...this.acrescimosSelecionados.filter(a => a !== acrescimo)
+      ];
+    }
+
+    console.log('Acréscimos selecionados: ', this.acrescimosSelecionados);
+  }
+
 }

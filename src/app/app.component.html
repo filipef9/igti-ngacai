@@ -1,25 +1,30 @@
-<h1>Monte seu Açaí</h1>
+<div class="container">
+  <div class="my-3">
+    <span class="title">Monte seu Açaí</span>
+  </div>
 
-<div class="card" style="width: 18rem;">
-  <div class="card-header">Tamanho</div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item" *ngFor="let tamanho of tamanhos; let i = index">
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="tamanho" id="{{ 'tamanho' + i }}" value="{{ tamanho }}" checked>
-        <label class="form-check-label" for="{{ 'tamanho' + i">{{ tamanho }}</label>
-      </div>
-    </li>
-  </ul>
-</div>
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">Tamanho</div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let tamanho of tamanhos; let i = index">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="tamanho" id="tamanho{{ i }}" value="{{ tamanho }}">
+          <label class="form-check-label" for="tamanho{{ i }}">{{ tamanho }}</label>
+        </div>
+      </li>
+    </ul>
+  </div>
 
-<div class="card" style="width: 18rem;">
-  <div class="card-header">Acréscimos</div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item" *ngFor="let acrescimo of acrescimos">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-        <label class="form-check-label" for="defaultCheck1">{{ acrescimo }}</label>
-      </div>
-    </li>
-  </ul>
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">Acréscimos</div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let acrescimo of acrescimos; let i = index">
+        <div class="form-check">
+          <input id="acrescimo{{ i }}" name="tamanho{{ i }}" class="form-check-input" type="checkbox"
+            value="{{ acrescimo }}" (change)="getAcrescimo($event, acrescimo)" />
+          <label class="form-check-label" for="acrescimo{{ i }}">{{ acrescimo }}</label>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
