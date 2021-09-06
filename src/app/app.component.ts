@@ -6,5 +6,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'igti-ngacai';
+  tamanhos = [
+    '300 ml',
+    '500 ml'
+  ];
+  tamanhoSelecionado: string;
+
+  acrescimos = [
+    'Leite condensado',
+    'Banana',
+    'Granola',
+    'Morango',
+    'Leite em pó',
+    'Côco',
+    'Castanha de caju'
+  ];
+  acrescimosSelecionados: string[];
+
 }
