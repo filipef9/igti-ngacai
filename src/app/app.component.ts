@@ -27,7 +27,11 @@ export class AppComponent {
     this.acrescimosSelecionados = [];
   }
 
-  getAcrescimo(event: any, acrescimo: string): void {
+  handleSelectTamanho(event: any): void {
+    this.tamanhoSelecionado = event.target.value;
+  }
+
+  handleSelectAcrescimo(event: any, acrescimo: string): void {
     const acrescimoFoiSelecionado = event.target.checked;
 
     if (acrescimoFoiSelecionado) {
