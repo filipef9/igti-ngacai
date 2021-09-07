@@ -3,38 +3,10 @@
     <span class="title">Monte seu Açaí</span>
   </div>
 
-  <div class="card" style="width: 18rem;">
-    <div class="card-header">Tamanho</div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let tamanho of tamanhos; let i = index">
-        <div class="form-check">
-          <input id="tamanho{{ i }}" class="form-check-input" type="radio" name="tamanho" value="{{ tamanho }}"
-            (change)="handleSelectTamanho($event)">
-          <label class="form-check-label" for="tamanho{{ i }}">{{ tamanho }}</label>
-        </div>
-      </li>
-    </ul>
-  </div>
+  <app-selecionar-item id="tamanhos" titulo="Tamanho" [opcoes]="tamanhosModel" [escolhaAte]="1"
+    (selecionarOpcao)="handleSelectTamanho($event)"></app-selecionar-item>
 
-  <div class="card" style="width: 18rem;">
-    <div class="card-header">
-      <h5 class="card-title">Acréscimos</h5>
-
-      <h6 *ngIf="getTotalAcrescimosSelecionados() === 0" class="card-subtitle text-muted">Escolha até 3</h6>
-      <h6 *ngIf="getTotalAcrescimosSelecionados() === 1" class="card-subtitle text-muted">Escolha até 3 ({{
-        getTotalAcrescimosSelecionados() }} selecionado)</h6>
-      <h6 *ngIf="getTotalAcrescimosSelecionados() > 1" class="card-subtitle text-muted">Escolha até 3 ({{
-        getTotalAcrescimosSelecionados() }} selecionados)</h6>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let acrescimo of acrescimosModel; let i = index">
-        <div class="form-check">
-          <input id="acrescimo{{ i }}" name="tamanho{{ i }}" class="form-check-input" type="checkbox"
-            value="{{ acrescimo.nome }}" (change)="handleSelectAcrescimo($event, acrescimo.nome)"
-            [checked]="acrescimo.checked" [disabled]="acrescimo.disabled" />
-          <label class="form-check-label" for="acrescimo{{ i }}">{{ acrescimo.nome }}</label>
-        </div>
-      </li>
-    </ul>
-  </div>
+  <app-selecionar-item id="acrescimos"
+    titulo="Acréscimos" [opcoes]="acrescimosModel" [escolhaAte]="3" [totalSelecionados]="getTotalAcrescimosSelecionados()"
+    (selecionarOpcao)="handleSelectAcrescimo($event)"></app-selecionar-item>
 </div>

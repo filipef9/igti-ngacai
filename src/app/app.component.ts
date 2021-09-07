@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AcrescimoModel } from './acrescimo.model';
+import { OpcaoModel } from './opcao.model';
 
 const MAXIMO_ACRESCIMOS_PERMITIDOS = 3;
 
@@ -9,11 +9,12 @@ const MAXIMO_ACRESCIMOS_PERMITIDOS = 3;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  tamanhos = [
+  tamanhos: string[] = [
     '300 ml',
     '500 ml'
   ];
-  tamanhoSelecionado: string;
+  tamanhoSelecionado: OpcaoModel;
+  tamanhosModel: OpcaoModel[];
 
   private acrescimos = [
     'Leite condensado',
@@ -24,27 +25,30 @@ export class AppComponent {
     'Côco',
     'Castanha de caju'
   ];
-  acrescimosSelecionados: string[];
-  acrescimosModel: AcrescimoModel[];
+  acrescimosModel: OpcaoModel[];
 
   constructor() {
-    this.acrescimosSelecionados = [];
+    this.tamanhosModel = [
+      ...[...this.tamanhos].map(t => ({ nome: t, disabled: false, checked: false }))
+    ];
+
     this.acrescimosModel = [
       ...[...this.acrescimos].map(a => ({ nome: a, disabled: false, checked: false }))
     ];
   }
 
-  handleSelectTamanho(event: any): void {
-    this.tamanhoSelecionado = event.target.value;
+  handleSelectTamanho(tamanho: { nome: string, checked: boolean }): void {
+    if (tamanho.checked) {
+      this.tamanhoSelecionado = { ...tamanho };
+    }
   }
 
-  handleSelectAcrescimo(event: any, acrescimo: string): void {
-    const acrescimoFoiSelecionado = event.target.checked;
-    console.log('acrescimosModel', this.acrescimosModel);
+  handleSelectAcrescimo(acrescimo: { nome: string, checked: boolean }): void {
+    const acrescimoFoiSelecionado = acrescimo.checked === true;
 
-    const index = this.acrescimosModel.findIndex(a => a.nome === acrescimo);
+    const index = this.acrescimosModel.findIndex(a => a.nome === acrescimo.nome);
     if (acrescimoFoiSelecionado) {
-      this.acrescimosModel[index].checked = event.target.checked;
+      this.acrescimosModel[index].checked = acrescimo.checked;
     } else {
       this.acrescimosModel[index].checked = false;
     }
@@ -63,7 +67,7 @@ export class AppComponent {
   getTotalAcrescimosSelecionados(): number {
     return this.acrescimosModel
       .reduce(
-        (soma: number, acrescimo: AcrescimoModel): number => (acrescimo.checked ? soma + 1 : soma),
+        (soma: number, acrescimo: OpcaoModel): number => (acrescimo.checked ? soma + 1 : soma),
         0
       );
   }
