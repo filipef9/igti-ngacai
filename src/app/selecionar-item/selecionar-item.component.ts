@@ -1,11 +1,12 @@
 import { Component, Input, EventEmitter, OnInit, Output } from '@angular/core';
+import { OpcaoModel } from '../opcao.model';
 
 @Component({
   selector: 'app-selecionar-item',
   templateUrl: './selecionar-item.component.html',
   styleUrls: ['./selecionar-item.component.scss']
 })
-export class SelecionarItemComponent implements OnInit {
+export class SelecionarItemComponent {
 
   @Input()
   id: string;
@@ -23,13 +24,11 @@ export class SelecionarItemComponent implements OnInit {
   totalSelecionados: number;
 
   @Output()
-  selecionarOpcao = new EventEmitter<{ nome: string, checked: boolean }>();
+  selecionarOpcao = new EventEmitter<OpcaoModel>();
 
   constructor() {
+    this.titulo = '';
     this.escolhaAte = 1;
-  }
-
-  ngOnInit(): void {
   }
 
   handleSelecionarOpcao(event: any, opcao: string): void {

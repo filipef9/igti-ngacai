@@ -2,18 +2,36 @@
   <div class="card-header">
     <h5 class="card-title">{{ titulo }}</h5>
     <div *ngIf="escolhaAte > 1">
-      <h6 *ngIf="totalSelecionados === 0" class="card-subtitle text-muted">Escolha até 3</h6>
-      <h6 *ngIf="totalSelecionados === 1" class="card-subtitle text-muted">Escolha até 3 ({{ totalSelecionados }} selecionado)</h6>
-      <h6 *ngIf="totalSelecionados > 1" class="card-subtitle text-muted">Escolha até 3 ({{ totalSelecionados }} selecionados)</h6>
+      <h6 
+        *ngIf="totalSelecionados === 0"
+        class="card-subtitle text-muted"
+      >Escolha até {{ escolhaAte }}</h6>
+
+      <h6
+        *ngIf="totalSelecionados === 1"
+        class="card-subtitle text-muted"
+      >Escolha até {{ escolhaAte }} ({{ totalSelecionados }} selecionado)</h6>
+
+      <h6
+        *ngIf="totalSelecionados > 1"
+        class="card-subtitle text-muted"
+      >Escolha até {{ escolhaAte }} ({{ totalSelecionados }} selecionados)</h6>
     </div>
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item" *ngFor="let opcao of opcoes; let i = index">
       <div class="form-check">
-        <input id="{{ id }}-{{ i }}" name="{{ id }}" class="form-check-input"
-          type="{{ escolhaAte === 1 ? 'radio' : 'checkbox' }}" value="{{ opcao.nome }}"
-          (change)="handleSelecionarOpcao($event, opcao.nome)" [checked]="opcao.checked" [disabled]="opcao.disabled" />
-        <label class="form-check-label" for="opcao{{ i }}">{{ opcao.nome }}</label>
+        <input
+          [id]="id + i"
+          [name]="id"
+          [type]="escolhaAte === 1 ? 'radio' : 'checkbox'"
+          [value]="opcao.nome"
+          (change)="handleSelecionarOpcao($event, opcao.nome)"
+          [checked]="opcao.checked"
+          [disabled]="opcao.disabled"
+          class="form-check-input"
+        />
+        <label class="form-check-label" [for]="id + i">{{ opcao.nome }}</label>
       </div>
     </li>
   </ul>
