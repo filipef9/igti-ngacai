@@ -9,6 +9,7 @@
     "editor.formatOnType": false,
     "editor.formatOnSave": true,
     "editor.minimap.enabled": false,
+    "editor.rulers": [80, 120],
     "editor.tabSize": 2,
     "editor.fontFamily": "'JetBrains Mono', 'Fira Code Retina', Consolas, monospace",
     "editor.codeActionsOnSave": {
